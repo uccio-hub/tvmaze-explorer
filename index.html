@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Search TV shows and explore complete show data from the TVmaze API.">
+  <title>Scene — TV Show Explorer</title>
+  <link rel="preconnect" href="https://api.tvmaze.com">
+  <link rel="preconnect" href="https://static.tvmaze.com">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="Scene home">
+      <span class="brand-mark" aria-hidden="true">S</span>
+      <span>SCENE</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#discover">Discover</a>
+      <a href="https://www.tvmaze.com/api" target="_blank" rel="noreferrer">API docs</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="discover">
+      <div class="hero-inner">
+        <p class="eyebrow">Powered by TVmaze</p>
+        <h1>Find your next<br><span>great story.</span></h1>
+        <p class="hero-copy">Search the TVmaze catalogue and explore shows, cast, crew, seasons and every episode in one place.</p>
+
+        <form class="search-form" id="search-form" role="search">
+          <label class="sr-only" for="search-input">Search for a TV show</label>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m2.35-5.65a8 8 0 1 1-16 0 8 8 0 0 1 16 0Z"/></svg>
+          <input id="search-input" name="q" type="search" placeholder="Search shows, e.g. Dark, Girls, Office..." autocomplete="off" minlength="1" required>
+          <button type="submit">Search</button>
+        </form>
+        <div class="quick-search" aria-label="Popular searches">
+          <span>Try</span>
+          <button data-query="Dark">Dark</button>
+          <button data-query="The Bear">The Bear</button>
+          <button data-query="Star Trek">Star Trek</button>
+          <button data-query="Office">Office</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section" id="results-section" aria-live="polite">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Catalogue</p>
+          <h2 id="results-title">Start with a title</h2>
+        </div>
+        <p id="result-count">Search across TVmaze's global show database.</p>
+      </div>
+
+      <div class="filter-bar" id="filter-bar" hidden>
+        <label>
+          <span>Genre</span>
+          <select id="genre-filter"><option value="all">All genres</option></select>
+        </label>
+        <label>
+          <span>Status</span>
+          <select id="status-filter"><option value="all">All statuses</option></select>
+        </label>
+        <label>
+          <span>Language</span>
+          <select id="language-filter"><option value="all">All languages</option></select>
+        </label>
+        <label>
+          <span>Sort by</span>
+          <select id="sort-filter">
+            <option value="relevance">Relevance</option>
+            <option value="rating">Rating</option>
+            <option value="newest">Newest first</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="state-card" id="welcome-state">
+        <div class="state-icon" aria-hidden="true">⌕</div>
+        <h3>A whole world of television</h3>
+        <p>Enter a word above. We will return every matching show, ordered by TVmaze relevance.</p>
+      </div>
+      <div class="results-grid" id="results-grid"></div>
+    </section>
+  </main>
+
+  <dialog class="detail-modal" id="detail-modal">
+    <div id="detail-content"></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <template id="card-template">
+    <article class="show-card">
+      <button class="card-action" type="button" aria-label="Open show details"></button>
+      <div class="poster-wrap">
+        <img class="poster" alt="" loading="lazy">
+        <span class="score-badge"></span>
+        <span class="status-badge"></span>
+      </div>
+      <div class="card-body">
+        <div class="card-kicker"></div>
+        <h3 class="card-title"></h3>
+        <p class="card-summary"></p>
+        <div class="genre-list"></div>
+        <div class="card-meta"></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
